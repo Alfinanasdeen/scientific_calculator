@@ -41,7 +41,30 @@ class Calculator {
     if (this.previousOperand !== "") {
       this.calculate();
     }
+
     this.operation = operation;
+
+    switch (operation) {
+      case "x^y":
+        this.operationForDisplay = "^";
+        break;
+      case "x10^x":
+        this.operationForDisplay = "x10^";
+        break;
+      case "e^x":
+        this.operationForDisplay = "^";
+        break;
+      case "x^2":
+        this.operationForDisplay = "^2";
+        break;
+      case "x^-1":
+        this.operationForDisplay = "^-1";
+        break;
+      default:
+        this.operationForDisplay = operation;
+        break;
+    }
+
     this.previousOperand = this.currentOperand;
     this.currentOperand = "";
   }
@@ -210,7 +233,7 @@ class Calculator {
       return integerDisplay;
     }
   }
-  
+
   // Memory Add (M+)
   memoryAdd() {
     const current = parseFloat(this.currentOperand);
@@ -242,7 +265,7 @@ class Calculator {
     if (this.operation != null) {
       this.previousOperandDisplayElement.innerText = `${this.getDisplayNumber(
         this.previousOperand
-      )} ${this.operation}`;
+      )} ${this.operationForDisplay}`;
     } else {
       this.previousOperandDisplayElement.innerText = "";
     }
