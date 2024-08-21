@@ -3,6 +3,7 @@ class Calculator {
     this.previousOperandDisplayElement = previousOperandDisplayElement;
     this.currentOperandDisplayElement = currentOperandDisplayElement;
     this.clear();
+    this.memory = 0;
   }
 
   clear() {
@@ -209,6 +210,30 @@ class Calculator {
       return integerDisplay;
     }
   }
+  
+  // Memory Add (M+)
+  memoryAdd() {
+    const current = parseFloat(this.currentOperand);
+    if (!isNaN(current)) {
+      this.memory += current;
+    }
+    console.log("Memory after M+:", this.memory);
+  }
+
+  // Memory Subtract (M-)
+  memorySubtract() {
+    const current = parseFloat(this.currentOperand);
+    if (!isNaN(current)) {
+      this.memory -= current;
+    }
+    console.log("Memory after M-:", this.memory);
+  }
+
+  // Memory Clear (MC)
+  memoryClear() {
+    this.memory = 0;
+    console.log("Memory cleared:", this.memory);
+  }
 
   updateDisplay() {
     this.currentOperandDisplayElement.innerText = this.getDisplayNumber(
@@ -235,6 +260,9 @@ const modeButtons = document.querySelectorAll("[data-mode]");
 const parenthesesButtons = document.querySelectorAll("[data-parentheses]");
 const previousOperandDisplayElement = document.querySelector("[data-previous]");
 const currentOperandDisplayElement = document.querySelector("[data-current]");
+const memoryAddButton = document.querySelector("[data-memory-add]");
+const memorySubtractButton = document.querySelector("[data-memory-subtract]");
+const memoryClearButton = document.querySelector("[data-memory-clear]");
 
 const calculator = new Calculator(
   previousOperandDisplayElement,
@@ -295,4 +323,16 @@ allClearButton.addEventListener("click", () => {
 deleteButton.addEventListener("click", () => {
   calculator.delete();
   calculator.updateDisplay();
+});
+
+memoryAddButton.addEventListener("click", () => {
+  calculator.memoryAdd();
+});
+
+memorySubtractButton.addEventListener("click", () => {
+  calculator.memorySubtract();
+});
+
+memoryClearButton.addEventListener("click", () => {
+  calculator.memoryClear();
 });
